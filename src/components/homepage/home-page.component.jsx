@@ -1,4 +1,4 @@
-import './home-page.styles.css'
+import './home-page.styles.scss'
 
 const HomePage = () => (
     <div className='homepage'>
