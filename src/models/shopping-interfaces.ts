@@ -13,7 +13,7 @@ export interface ShopItem {
     price: number;
 }
 
-export interface ShopPage {
+export interface Collection {
     id: number;
     title: string;
     routeName: string;

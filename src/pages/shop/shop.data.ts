@@ -1,6 +1,6 @@
-import { ShopPage } from "../../models/shopping-interfaces";
+import { Collection } from "../../models/shopping-interfaces";
 
-const SHOP_DATA : ShopPage[] = [
+const SHOP_DATA : Collection[] = [
     {
       id: 1,      
       title: 'Hats',
