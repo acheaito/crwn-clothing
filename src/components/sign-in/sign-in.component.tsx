@@ -2,6 +2,8 @@ import { Component, FormEvent } from 'react';
 import './sign-in.styles.scss';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
+import { signInWithGoogle } from '../../firebase/firebase.utils';
+
 interface IProp {
 
 }
@@ -46,16 +48,20 @@ class SignIn extends Component<IProp, IState> {
                         value={this.state.email}
                         handleChange={this.handleChange}
                         label='email'
-                        required />                    
+                        required />
                     <FormInput
                         name="password"
                         type="password"
                         value={this.state.password}
                         handleChange={this.handleChange}
                         label='password'
-                        required />                    
-                    
-                    <CustomButton type='submit'>Sign in</CustomButton>
+                        required />
+                    <div className='buttons'>
+                        <CustomButton type='submit'>Sign in</CustomButton>
+                        <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
+                            Sign In With Google
+                        </CustomButton>
+                    </div>
                 </form>
             </div>
         )
