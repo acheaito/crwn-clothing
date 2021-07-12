@@ -1,6 +1,8 @@
-const SHOP_DATA = [
+import { ShopPage } from "../../models/shopping-interfaces";
+
+const SHOP_DATA : ShopPage[] = [
     {
-      id: 1,
+      id: 1,      
       title: 'Hats',
       routeName: 'hats',
       items: [

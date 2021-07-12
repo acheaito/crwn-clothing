@@ -1,10 +1,17 @@
 import './directory.styles.scss';
-import MenuItem from '../../components/menu-item/menu-item.component';
+import MenuItem from '../menu-item/menu-item.component';
 import { Component } from 'react';
+import { SectionItem } from '../../models/shopping-interfaces';
 
-class Directory extends Component {
-    constructor() {
-        super();
+interface IProp {    
+}
+interface IState {
+    sections: SectionItem[]
+}
+
+class Directory extends Component<IProp, IState> {
+    constructor(props: any) {
+        super(props);
 
         this.state = {
             sections: this.getSections()
@@ -18,9 +25,9 @@ class Directory extends Component {
         </div>);
     }
 
-    getSections = () => {
+    getSections = (): SectionItem[] => {
         return [
-            {
+            {                
                 title: 'hats',
                 imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
                 id: 1,
