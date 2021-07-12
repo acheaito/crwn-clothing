@@ -1,19 +1,21 @@
-import { ShopItem } from '../../models/shopping-interfaces';
+import { CollItem } from '../../models/shopping-interfaces';
 import './collection-preview.styles.scss';
+import CollectionItem from '../collection-item/collection-item.component';
+
 
 interface IProp {
     title: string;
-    items: ShopItem[];
+    items: CollItem[];
 }
 
-const CollectionPreview = ({ title, items }: IProp) => (
+const CollectionPreview = ({ title, items }: IProp) => (    
     <div className='collection-preview'>
         <h1 className='title'>{title.toUpperCase()}</h1>
         <div className='preview'>
             {items
             .slice(0, 4)
-            .map(item => (
-                <div key={item.id}>{item.name}</div>
+            .map((item) => (
+                <CollectionItem key={item.id} {...item} />
             ))}
         </div>
     </div>

@@ -6,7 +6,7 @@ export interface SectionItem {
     linkUrl?: string
 }
 
-export interface ShopItem {
+export interface CollItem {
     id: number;
     name: string;
     imageUrl: string;
@@ -17,5 +17,5 @@ export interface Collection {
     id: number;
     title: string;
     routeName: string;
-    items: ShopItem[];
+    items: CollItem[];
 }
