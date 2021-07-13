@@ -11,6 +11,7 @@ interface IProp {
 interface IState {
     email: string;
     password: string;
+    [key: string]: unknown;
 }
 
 class SignIn extends Component<IProp, IState> {
@@ -24,13 +25,13 @@ class SignIn extends Component<IProp, IState> {
         }
     }
 
-    handleSubmit = (event: FormEvent<Element>) => {
+    handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         this.setState({ email: '', password: '' });
     }
 
-    handleChange = (event: FormEvent<Element>) => {
-        const { value, name } = event.target;
+    handleChange = (event: FormEvent<HTMLInputElement>) => {
+        const { value, name } = event.currentTarget;
 
         this.setState({ [name]: value })
     }
@@ -46,14 +47,14 @@ class SignIn extends Component<IProp, IState> {
                         name="email"
                         type="email"
                         value={this.state.email}
-                        handleChange={this.handleChange}
+                        onChange={this.handleChange}
                         label='email'
                         required />
                     <FormInput
                         name="password"
                         type="password"
                         value={this.state.password}
-                        handleChange={this.handleChange}
+                        onChange={this.handleChange}
                         label='password'
                         required />
                     <div className='buttons'>

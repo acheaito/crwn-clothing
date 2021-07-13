@@ -3,11 +3,11 @@ import './form-input.styles.scss';
 
 interface IProp {
     label: string;
-    handleChange: (event: FormEvent) => void;
-    [key: string]: any;
+    onChange: (event: FormEvent<HTMLInputElement>) => void;
+    [key: string]: unknown;
 }
 
-const FormInput = ({ handleChange, label, ...otherProps }: IProp) => (
+const FormInput = ({ onChange: handleChange, label, ...otherProps }: IProp) => (
     <div className='group'>
         <input className='form-input' onChange={handleChange} {...otherProps} />
         {
