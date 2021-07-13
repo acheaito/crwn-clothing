@@ -1,13 +1,13 @@
 import { CollItem } from '../../models/shopping-interfaces';
 import './collection-item.styles.scss';
 
-const CollectionItem = ({name, price, imageUrl }: CollItem) => (
+const CollectionItem = ({name, price, imageUrl }: CollItem): JSX.Element => (
     <div className='collection-item'>
         <div 
-        className='image'
-        style= {{
-            backgroundImage: `url(${imageUrl})`
-        }}/>
+            className='image'
+            style= {{
+                backgroundImage: `url(${imageUrl})`
+            }}/>
 
         <div className='collection-footer'>
             <span className='name'>{name}</span>

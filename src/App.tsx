@@ -7,59 +7,57 @@ import Header from './components/header/header.component';
 import SignInUpPage from './pages/sign-in-up/sign-in-up.component';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { Component } from 'react';
-
-interface IProp {
-
-}
+import { CurrentUser } from './models/user-interfaces';
 
 interface IState {
-  currentUser: any
+  currentUser?: CurrentUser;
 }
-class App extends Component<IProp, IState> {
-  private unsubscribeFromAuth: any;
+class App extends Component<Record<string, never>, IState> {
+    private unsubscribeFromAuth: () => void = () => {
+        // do nothing
+    };
+    
+    constructor(props: Record<string, never>) {
+        super(props);
 
-  constructor(props: IProp) {
-      super(props);
+        this.state = {            
+        };
+    }
 
-      this.state = {
-          currentUser: null
-      };
-  }
+    componentDidMount(): void {
+        this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+            if (userAuth) {
+                const userRef = await createUserProfileDocument(userAuth);
 
-  componentDidMount() {
-      this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-          if (userAuth) {
-              const userRef = await createUserProfileDocument(userAuth);
+                userRef?.onSnapshot(snapshot => {
+                    this.setState({
+                        currentUser: {
+                            id: snapshot.id,
+                            ...snapshot.data() as any
+                        }
+                    });
+                });
+            }            
+            this.setState({ currentUser: undefined });
+        });
+    }
 
-              userRef?.onSnapshot(snapshot => {
-                  this.setState({
-                      currentUser: {
-                          id: snapshot.id,
-                          ...snapshot.data()
-                      }
-                  });
-              });
-          }
-          this.setState({ currentUser: userAuth });
-      });
-  }
+    componentWillUnmount(): void {
+        this.unsubscribeFromAuth();
+    }
 
-  componentWillUnmount() {
-      this.unsubscribeFromAuth();
-  }
-
-  render() {
-      return (
-          <div>
-              <Header currentUser={this.state.currentUser} />
-              <Switch>  {/* STOP MATCHING AFTER FIRST HIT */}
-                  <Route exact path='/' component={HomePage} /> {/* without exact, partial matches cause component to render */}
-                  <Route path='/shop' component={ShopPage} />
-                  <Route path='/signin' component={SignInUpPage} />
-              </Switch>
-          </div>
-      );
-  }
+    render(): JSX.Element {
+        return (
+            <div>
+                <Header currentUser={this.state.currentUser} />
+                <Switch>  {/* STOP MATCHING AFTER FIRST HIT */}
+                    <Route exact path='/' component={HomePage} /> {/* without exact, partial matches cause component to render */}
+                    <Route path='/shop' component={ShopPage} />
+                    <Route path='/signin' component={SignInUpPage} />
+                </Switch>
+            </div>
+        );
+    }
 }
 
 export default App;

@@ -1,12 +1,13 @@
+import { ReactNode, ReactPortal } from 'react';
 import './custom-button.styles.scss';
 
 interface IProp {
-    children: any;
+    children: string | ReactNode | ReactPortal;
     isGoogleSignIn?: boolean;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
-const CustomButton = ({ children, isGoogleSignIn, ...otherProps }: IProp) => (
+const CustomButton = ({ children, isGoogleSignIn, ...otherProps }: IProp): JSX.Element => (
     <button className={`${isGoogleSignIn ? 'google-sign-in' : ''} custom-button`}
         {...otherProps}>
         {children}

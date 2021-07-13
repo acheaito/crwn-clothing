@@ -1,18 +1,11 @@
 import { Component, FormEvent } from 'react';
 import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
+import { CurrentUser } from '../../models/user-interfaces';
 import CustomButton from '../custom-button/custom-button.component';
 import FormInput from '../form-input/form-input.component';
 import './sign-up.styles.scss';
 
-interface IState {
-    displayName: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-    [key:string]: unknown;
-}
-
-class SignUp extends Component<Record<string, never>, IState> {
+class SignUp extends Component<Record<string, never>, CurrentUser> {
     private readonly initialState =  {
         displayName: '',
         email: '',
@@ -20,8 +13,8 @@ class SignUp extends Component<Record<string, never>, IState> {
         confirmPassword: ''
     };
 
-    constructor() {
-        super({});
+    constructor(props: Record<string, never>) {
+        super(props);
         
         this.state = this.initialState;
     }

@@ -3,21 +3,18 @@ import SHOP_DATA from "./shop.data";
 import { Collection } from "../../models/shopping-interfaces";
 import CollectionPreview from "../../components/collection-preview/collection-preview.component";
 
-interface IProp {
-}
-
 interface IState {
     collections: Collection[];
 }
-class ShopPage extends Component<IProp, IState> {
-    constructor(props: IProp) {
+class ShopPage extends Component<Record<string, never>, IState> {
+    constructor(props: Record<string, never>) {
         super(props);
         this.state = {
             collections: SHOP_DATA
         };
     }
 
-    render() {
+    render(): JSX.Element {
         const {collections} = this.state;
         return (<div className='shop-page'>
             {
@@ -25,7 +22,7 @@ class ShopPage extends Component<IProp, IState> {
                     <CollectionPreview key={id} {...otherProps} />
                 ))
             }
-        </div>)
+        </div>);
     }
 }
 

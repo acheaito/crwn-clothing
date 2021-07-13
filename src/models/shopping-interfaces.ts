@@ -3,7 +3,7 @@ export interface SectionItem {
     title: string;
     imageUrl: string;
     size?: string;
-    linkUrl?: string
+    linkUrl?: string;
 }
 
 export interface CollItem {

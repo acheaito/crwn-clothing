@@ -1,4 +1,4 @@
-import './menu-item.styles.scss'
+import './menu-item.styles.scss';
 
 import { withRouter } from 'react-router';
 
@@ -22,6 +22,6 @@ const MenuItem = ({ title, imageUrl, size, linkUrl, history, match }: IProp) => 
             <span className='subtitle'>SHOP NOW</span>
         </div>
     </div>
-)
+);
 
 export default withRouter(MenuItem as any);

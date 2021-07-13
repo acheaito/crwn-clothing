@@ -3,22 +3,20 @@ import MenuItem from '../menu-item/menu-item.component';
 import { Component } from 'react';
 import { SectionItem } from '../../models/shopping-interfaces';
 
-interface IProp {    
-}
 interface IState {
-    sections: SectionItem[]
+    sections: SectionItem[];
 }
 
-class Directory extends Component<IProp, IState> {
-    constructor(props: any) {
+class Directory extends Component<Record<string, never>, IState> {
+    constructor(props: Record<string, never>) {
         super(props);
 
         this.state = {
             sections: this.getSections()
-        }
+        };
     }
 
-    render() {
+    render(): JSX.Element {
         return (<div className='directory-menu'>
             {this.state.sections.map(({ id, ...otherSectionProps }) =>
                 <MenuItem key={id} {...otherSectionProps} />)}

@@ -8,17 +8,17 @@ interface IProp {
     items: CollItem[];
 }
 
-const CollectionPreview = ({ title, items }: IProp) => (    
+const CollectionPreview = ({ title, items }: IProp): JSX.Element => (    
     <div className='collection-preview'>
         <h1 className='title'>{title.toUpperCase()}</h1>
         <div className='preview'>
             {items
-            .slice(0, 4)
-            .map((item) => (
-                <CollectionItem key={item.id} {...item} />
-            ))}
+                .slice(0, 4)
+                .map((item) => (
+                    <CollectionItem key={item.id} {...item} />
+                ))}
         </div>
     </div>
-)
+);
 
 export default CollectionPreview;

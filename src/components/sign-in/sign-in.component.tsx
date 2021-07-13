@@ -4,39 +4,35 @@ import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 import { signInWithGoogle } from '../../firebase/firebase.utils';
 
-interface IProp {
-
-}
-
 interface IState {
     email: string;
     password: string;
     [key: string]: unknown;
 }
 
-class SignIn extends Component<IProp, IState> {
+class SignIn extends Component<Record<string, never>, IState> {
 
-    constructor(props: IProp) {
+    constructor(props: Record<string, never>) {
         super(props);
 
         this.state = {
             email: '',
             password: ''
-        }
+        };
     }
 
-    handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
         this.setState({ email: '', password: '' });
     }
 
-    handleChange = (event: FormEvent<HTMLInputElement>) => {
+    handleChange = (event: FormEvent<HTMLInputElement>): void => {
         const { value, name } = event.currentTarget;
 
-        this.setState({ [name]: value })
+        this.setState({ [name]: value });
     }
 
-    render() {
+    render(): JSX.Element {
         return (
             <div className='sign-in'>
                 <h2>I already have an account</h2>
@@ -65,7 +61,7 @@ class SignIn extends Component<IProp, IState> {
                     </div>
                 </form>
             </div>
-        )
+        );
     }
 }
 

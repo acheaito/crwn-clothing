@@ -10,11 +10,11 @@ const config = {
     messagingSenderId: "338449366394",
     appId: "1:338449366394:web:56b8e205586f8a94802ac3",
     measurementId: "G-Z3N49ZTMQM"
-}
+};
 
-export const createUserProfileDocument = async (userAuth: firebase.User | null, additionalData?: any) => {
+export const createUserProfileDocument = async (userAuth: firebase.User | null, additionalData?: []): Promise<firebase.firestore.DocumentReference<firebase.firestore.DocumentData> | undefined> => {
     if (!userAuth) {
-        console.log('User auth is null')
+        console.log('User auth is null');
         return;
     }
 
@@ -31,14 +31,14 @@ export const createUserProfileDocument = async (userAuth: firebase.User | null, 
                 email,
                 createdAt,
                 ...additionalData
-            })
+            });
         } catch (error) {
             console.error('Error creating user', error);
         }
     }
 
     return userRef;
-}
+};
 
 firebase.initializeApp(config);
 
@@ -47,6 +47,6 @@ export const firestore = firebase.firestore();
 
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt: 'select_account' });
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+export const signInWithGoogle = ():Promise<firebase.auth.UserCredential> => auth.signInWithPopup(provider);
 
 export default firebase;
