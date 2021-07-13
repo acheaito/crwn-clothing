@@ -12,7 +12,7 @@ const config = {
     measurementId: "G-Z3N49ZTMQM"
 };
 
-export const createUserProfileDocument = async (userAuth: firebase.User | null, additionalData?: []): Promise<firebase.firestore.DocumentReference<firebase.firestore.DocumentData> | undefined> => {
+export const createUserProfileDocument = async (userAuth: firebase.User | null, additionalData?: Record<string,any>): Promise<firebase.firestore.DocumentReference<firebase.firestore.DocumentData> | undefined> => {
     if (!userAuth) {
         console.log('User auth is null');
         return;

@@ -13,9 +13,8 @@ interface IState {
   currentUser?: CurrentUser;
 }
 class App extends Component<Record<string, never>, IState> {
-    private unsubscribeFromAuth: () => void = () => {
-        // do nothing
-    };
+    private unsubscribeFromAuth: (() => void) | undefined;
+    unsubscribeFromSnapshot: (() => void) | undefined;
     
     constructor(props: Record<string, never>) {
         super(props);
@@ -29,7 +28,7 @@ class App extends Component<Record<string, never>, IState> {
             if (userAuth) {
                 const userRef = await createUserProfileDocument(userAuth);
 
-                userRef?.onSnapshot(snapshot => {
+                this.unsubscribeFromSnapshot = userRef?.onSnapshot(snapshot => {
                     this.setState({
                         currentUser: {
                             id: snapshot.id,
@@ -43,7 +42,8 @@ class App extends Component<Record<string, never>, IState> {
     }
 
     componentWillUnmount(): void {
-        this.unsubscribeFromAuth();
+        this.unsubscribeFromAuth?.();
+        this.unsubscribeFromSnapshot?.();
     }
 
     render(): JSX.Element {
