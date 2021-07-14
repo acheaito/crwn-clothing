@@ -41,7 +41,7 @@ class SignUp extends Component<Record<string, never>, CurrentUser> {
 
     handleChange = (event: FormEvent<HTMLInputElement>): void => {
         const { name, value} = event.currentTarget;
-        this.setState({[name]:value});
+        this.setState({[name]: value});
     }
 
     render(): JSX.Element {
