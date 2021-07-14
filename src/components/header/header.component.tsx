@@ -5,6 +5,8 @@ import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { auth } from '../../firebase/firebase.utils';
 import { CurrentUser } from '../../models/user-interfaces';
 
+import { connect } from 'react-redux';
+
 interface IProp {
     currentUser?: CurrentUser;
 }
@@ -33,4 +35,8 @@ const Header = ({ currentUser }: IProp): JSX.Element => (
     </div>
 );
 
-export default Header;
+const mapStateToProps = (state: any) => ({
+    currentUser: state.user.currentUser
+});
+
+export default connect(mapStateToProps)(Header);

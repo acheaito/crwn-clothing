@@ -8,36 +8,31 @@ import SignInUpPage from './pages/sign-in-up/sign-in-up.component';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { Component } from 'react';
 import { CurrentUser } from './models/user-interfaces';
+import { connect } from 'react-redux';
+import { setCurrentUser } from './redux/user/user.action';
 
-interface IState {
-  currentUser?: CurrentUser;
+interface IProps {
+    setCurrentUser: (user: CurrentUser | null) => void;
 }
-class App extends Component<Record<string, never>, IState> {
+class App extends Component<IProps, never> {
     private unsubscribeFromAuth: (() => void) | undefined;
     unsubscribeFromSnapshot: (() => void) | undefined;
-    
-    constructor(props: Record<string, never>) {
-        super(props);
-
-        this.state = {            
-        };
-    }
 
     componentDidMount(): void {
+        const { setCurrentUser } = this.props;
         this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
             if (userAuth) {
                 const userRef = await createUserProfileDocument(userAuth);
 
                 this.unsubscribeFromSnapshot = userRef?.onSnapshot(snapshot => {
-                    this.setState({
-                        currentUser: {
-                            id: snapshot.id,
-                            ...snapshot.data() as any
-                        }
+                    setCurrentUser({                        
+                        id: snapshot.id,
+                        ...snapshot.data() as any                        
                     });
                 });
-            }            
-            this.setState({ currentUser: undefined });
+            } else {
+                setCurrentUser(null);
+            }                       
         });
     }
 
@@ -49,7 +44,7 @@ class App extends Component<Record<string, never>, IState> {
     render(): JSX.Element {
         return (
             <div>
-                <Header currentUser={this.state.currentUser} />
+                <Header/>
                 <Switch>  {/* STOP MATCHING AFTER FIRST HIT */}
                     <Route exact path='/' component={HomePage} /> {/* without exact, partial matches cause component to render */}
                     <Route path='/shop' component={ShopPage} />
@@ -60,4 +55,8 @@ class App extends Component<Record<string, never>, IState> {
     }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch: any) => ({
+    setCurrentUser: (user: CurrentUser | null) => dispatch(setCurrentUser(user))
+});
+
+export default connect(null, mapDispatchToProps)(App);

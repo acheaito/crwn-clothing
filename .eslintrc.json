@@ -31,11 +31,22 @@
         "space-before-function-paren": "off",
         "indent": ["warn", 4],
         "comma-dangle": ["error", "never"],
-        "key-spacing": ["error"],        
+        "key-spacing": ["error"],    
+        "object-curly-spacing": ["error", "always"],
         "switch-colon-spacing": ["error", {"before": false, "after": true}],        
         "react/react-in-jsx-scope": "off",
         "@typescript-eslint/member-delimiter-style": "error",
         "@typescript-eslint/no-explicit-any":"off",
-        "@typescript-eslint/type-annotation-spacing": ["error"]        
-    }
+        "@typescript-eslint/type-annotation-spacing": ["error"],
+        "@typescript-eslint/explicit-module-boundary-types": "off"     //disable for all files (see overrides)   
+    },
+    "overrides": [
+        {
+          // enable these rules specifically for TypeScript files
+          "files": ["*.ts", "*.tsx"],
+          "rules": {
+            "@typescript-eslint/explicit-module-boundary-types": ["error"]
+          }
+        }
+      ]
 }

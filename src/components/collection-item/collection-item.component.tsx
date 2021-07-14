@@ -1,7 +1,7 @@
 import { CollItem } from '../../models/shopping-interfaces';
 import './collection-item.styles.scss';
 
-const CollectionItem = ({name, price, imageUrl }: CollItem): JSX.Element => (
+const CollectionItem = ({ name, price, imageUrl }: CollItem): JSX.Element => (
     <div className='collection-item'>
         <div 
             className='image'

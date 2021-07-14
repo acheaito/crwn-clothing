@@ -22,7 +22,7 @@ class SignUp extends Component<Record<string, never>, CurrentUser> {
     handleSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
         event.preventDefault();
 
-        const {displayName, email, password, confirmPassword} = this.state;
+        const { displayName, email, password, confirmPassword } = this.state;
 
         if (password !== confirmPassword) {
             alert("Passwords don't match");
@@ -40,12 +40,12 @@ class SignUp extends Component<Record<string, never>, CurrentUser> {
     }
 
     handleChange = (event: FormEvent<HTMLInputElement>): void => {
-        const { name, value} = event.currentTarget;
-        this.setState({[name]: value});
+        const { name, value } = event.currentTarget;
+        this.setState({ [name]: value });
     }
 
     render(): JSX.Element {
-        const {displayName, email, password, confirmPassword} = this.state;
+        const { displayName, email, password, confirmPassword } = this.state;
         return (
             <div className='sign-up'>
                 <h2 className='title'>I do not have an account</h2>
