@@ -5,14 +5,18 @@ import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { auth } from '../../firebase/firebase.utils';
 import { CurrentUser } from '../../models/user-interfaces';
 
+import CartIcon from '../cart-icon/cart-icon.component';
+import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+
 import { connect } from 'react-redux';
 import { IReducedState } from '../../models/state-interfaces';
 
 interface IProps {
     currentUser?: CurrentUser;
+    cartHidden?: boolean;
 }
 
-const Header = ({ currentUser }: IProps): JSX.Element => (
+const Header = ({ currentUser, cartHidden }: IProps): JSX.Element => (
     <div className='header'>
         <Link className='logo-container' to="/">
             <Logo className='logo' />
@@ -32,12 +36,15 @@ const Header = ({ currentUser }: IProps): JSX.Element => (
                         SIGN IN
                     </Link>
             }
-        </div>
+            <CartIcon />
+        </div>       
+        { cartHidden ? null : <CartDropdown /> }
     </div>
 );
 
 const mapStateToProps = (state: IReducedState): IProps => ({
-    currentUser: state.userState?.currentUser
+    currentUser: state?.userState?.currentUser,
+    cartHidden: state?.cartState?.cartHidden
 });
 
 export default connect(mapStateToProps)(Header);
