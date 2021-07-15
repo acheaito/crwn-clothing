@@ -1,3 +1,3 @@
-export enum ReducerActions {
+export enum UserActions {
     SET_CURRENT_USER = 'SET_CURRENT_USER'
 }

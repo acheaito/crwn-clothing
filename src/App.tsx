@@ -1,6 +1,6 @@
 import './App.scss';
 
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import HomePage from './pages/homepage/home-page.component';
 import ShopPage from './pages/shop/shop.component';
 import Header from './components/header/header.component';
@@ -9,10 +9,11 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { Component } from 'react';
 import { CurrentUser } from './models/user-interfaces';
 import { connect } from 'react-redux';
-import { setCurrentUser } from './redux/user/user.action';
+import { setCurrentUser } from './redux/user/user.actions';
 
 interface IProps {
     setCurrentUser: (user: CurrentUser | null) => void;
+    currentUser?: CurrentUser;
 }
 class App extends Component<IProps, never> {
     private unsubscribeFromAuth: (() => void) | undefined;
@@ -48,15 +49,29 @@ class App extends Component<IProps, never> {
                 <Switch>  {/* STOP MATCHING AFTER FIRST HIT */}
                     <Route exact path='/' component={HomePage} /> {/* without exact, partial matches cause component to render */}
                     <Route path='/shop' component={ShopPage} />
-                    <Route path='/signin' component={SignInUpPage} />
+                    <Route 
+                        exact 
+                        path='/signin' 
+                        render={() => 
+                            this.props.currentUser ? (<
+                                Redirect to='/' /> 
+                            ) : ( 
+                                <SignInUpPage />
+                            )
+                        } 
+                    />
                 </Switch>
             </div>
         );
     }
 }
 
+const mapStateToProps = ({ user }: {user: { currentUser: CurrentUser}}) => ({
+    currentUser: user.currentUser
+});
+
 const mapDispatchToProps = (dispatch: any) => ({
     setCurrentUser: (user: CurrentUser | null) => dispatch(setCurrentUser(user))
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
