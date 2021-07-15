@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
+import { IState } from '../../models/state-interfaces';
 import { UserActions } from "./user.types";
-import { IState } from "../root-reducer";
 
 const userReducer = (state: IState = {}, action: AnyAction): IState => {
     switch (action.type) { 

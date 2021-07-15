@@ -6,14 +6,14 @@ import ShopPage from './pages/shop/shop.component';
 import Header from './components/header/header.component';
 import SignInUpPage from './pages/sign-in-up/sign-in-up.component';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
-import { Component } from 'react';
+import { Component, Dispatch } from 'react';
 import { CurrentUser } from './models/user-interfaces';
 import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.actions';
-import { IReducedState } from './redux/root-reducer';
+import { IReducedState, IStateAction } from './models/state-interfaces';
 
 interface IProps {
-    setCurrentUser?: (user: CurrentUser | null) => void;
+    updateUserState?: (user?: CurrentUser) => void;
     currentUser?: CurrentUser;
 }
 class App extends Component<IProps, never> {
@@ -21,19 +21,19 @@ class App extends Component<IProps, never> {
     unsubscribeFromSnapshot: (() => void) | undefined;
 
     componentDidMount(): void {
-        const { setCurrentUser } = this.props;
+        const { updateUserState } = this.props;
         this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
             if (userAuth) {
                 const userRef = await createUserProfileDocument(userAuth);
 
                 this.unsubscribeFromSnapshot = userRef?.onSnapshot(snapshot => {
-                    setCurrentUser?.({                        
+                    updateUserState?.({                        
                         id: snapshot.id,
                         ...snapshot.data() as any                        
                     });
                 });
             } else {
-                setCurrentUser?.(null);
+                updateUserState?.();
             }                       
         });
     }
@@ -71,8 +71,8 @@ export const mapStateToProps = (state: IReducedState): IProps => ({
     currentUser: state.userState?.currentUser
 });
 
-const mapDispatchToProps = (dispatch: any) => ({
-    setCurrentUser: (user: CurrentUser | null) => dispatch(setCurrentUser(user))
+const mapDispatchToProps = (dispatch: Dispatch<IStateAction>): IProps => ({
+    updateUserState: (user?: CurrentUser) => dispatch(setCurrentUser(user))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

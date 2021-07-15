@@ -1,15 +1,7 @@
 import { AnyAction, combineReducers, ReducersMapObject } from "redux";
-import { CurrentUser } from "../models/user-interfaces";
+import { IReducedState } from "../models/state-interfaces";
 
 import userReducer from "./user/user.reducer";
-
-export interface IState {
-    currentUser?: CurrentUser;
-}
-
-export interface IReducedState {
-    userState?: IState;
-}
 
 const reducerMap: ReducersMapObject<IReducedState, AnyAction> = {
     userState: userReducer

@@ -6,7 +6,7 @@ import { auth } from '../../firebase/firebase.utils';
 import { CurrentUser } from '../../models/user-interfaces';
 
 import { connect } from 'react-redux';
-import { IReducedState } from '../../redux/root-reducer';
+import { IReducedState } from '../../models/state-interfaces';
 
 interface IProps {
     currentUser?: CurrentUser;
