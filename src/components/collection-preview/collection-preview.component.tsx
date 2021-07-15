@@ -3,12 +3,12 @@ import './collection-preview.styles.scss';
 import CollectionItem from '../collection-item/collection-item.component';
 
 
-interface IProp {
+interface IProps {
     title: string;
     items: CollItem[];
 }
 
-const CollectionPreview = ({ title, items }: IProp): JSX.Element => (    
+const CollectionPreview = ({ title, items }: IProps): JSX.Element => (    
     <div className='collection-preview'>
         <h1 className='title'>{title.toUpperCase()}</h1>
         <div className='preview'>

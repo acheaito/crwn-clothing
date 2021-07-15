@@ -10,9 +10,10 @@ import { Component } from 'react';
 import { CurrentUser } from './models/user-interfaces';
 import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.actions';
+import { IReducedState } from './redux/root-reducer';
 
 interface IProps {
-    setCurrentUser: (user: CurrentUser | null) => void;
+    setCurrentUser?: (user: CurrentUser | null) => void;
     currentUser?: CurrentUser;
 }
 class App extends Component<IProps, never> {
@@ -26,13 +27,13 @@ class App extends Component<IProps, never> {
                 const userRef = await createUserProfileDocument(userAuth);
 
                 this.unsubscribeFromSnapshot = userRef?.onSnapshot(snapshot => {
-                    setCurrentUser({                        
+                    setCurrentUser?.({                        
                         id: snapshot.id,
                         ...snapshot.data() as any                        
                     });
                 });
             } else {
-                setCurrentUser(null);
+                setCurrentUser?.(null);
             }                       
         });
     }
@@ -66,8 +67,8 @@ class App extends Component<IProps, never> {
     }
 }
 
-const mapStateToProps = ({ user }: {user: { currentUser: CurrentUser}}) => ({
-    currentUser: user.currentUser
+export const mapStateToProps = (state: IReducedState): IProps => ({
+    currentUser: state.userState?.currentUser
 });
 
 const mapDispatchToProps = (dispatch: any) => ({

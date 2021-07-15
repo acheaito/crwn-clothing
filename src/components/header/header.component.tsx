@@ -6,12 +6,13 @@ import { auth } from '../../firebase/firebase.utils';
 import { CurrentUser } from '../../models/user-interfaces';
 
 import { connect } from 'react-redux';
+import { IReducedState } from '../../redux/root-reducer';
 
-interface IProp {
+interface IProps {
     currentUser?: CurrentUser;
 }
 
-const Header = ({ currentUser }: IProp): JSX.Element => (
+const Header = ({ currentUser }: IProps): JSX.Element => (
     <div className='header'>
         <Link className='logo-container' to="/">
             <Logo className='logo' />
@@ -35,8 +36,8 @@ const Header = ({ currentUser }: IProp): JSX.Element => (
     </div>
 );
 
-const mapStateToProps = (state: any) => ({
-    currentUser: state.user.currentUser
+const mapStateToProps = (state: IReducedState): IProps => ({
+    currentUser: state.userState?.currentUser
 });
 
 export default connect(mapStateToProps)(Header);

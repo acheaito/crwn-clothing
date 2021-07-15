@@ -2,7 +2,7 @@ import './menu-item.styles.scss';
 
 import { withRouter } from 'react-router';
 
-interface IProp {
+interface IProps {
     title: string;
     imageUrl: string;
     size: string;
@@ -11,7 +11,7 @@ interface IProp {
     match: any;
 }
 
-const MenuItem = ({ title, imageUrl, size, linkUrl, history, match }: IProp) => (
+const MenuItem = ({ title, imageUrl, size, linkUrl, history, match }: IProps) => (
     <div className={`${size} menu-item`} onClick={() => history.push(`${match.url}${linkUrl}`)}>
         <div className='background-image'
             style={{

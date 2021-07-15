@@ -1,15 +1,8 @@
-import { CurrentUser } from "../../models/user-interfaces";
 import { AnyAction } from 'redux';
 import { UserActions } from "./user.types";
+import { IState } from "../root-reducer";
 
-interface IState {
-    currentUser?: CurrentUser;
-}
-
-const INITIAL_STATE: IState = {    
-};
-
-const userReducer = (state = INITIAL_STATE, action: AnyAction): IState => {
+const userReducer = (state: IState = {}, action: AnyAction): IState => {
     switch (action.type) { 
     case UserActions.SET_CURRENT_USER:        
         return {

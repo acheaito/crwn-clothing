@@ -1,14 +1,14 @@
 import { FormEvent } from 'react';
 import './form-input.styles.scss';
 
-interface IProp {
+interface IProps {
     label: string;
     onChange: (event: FormEvent<HTMLInputElement>) => void;
     value: string;
     [key: string]: unknown;
 }
 
-const FormInput = ({ onChange: handleChange, label, ...otherProps }: IProp): JSX.Element => (
+const FormInput = ({ onChange: handleChange, label, ...otherProps }: IProps): JSX.Element => (
     <div className='group'>
         <input className='form-input' onChange={handleChange} {...otherProps} />
         {
