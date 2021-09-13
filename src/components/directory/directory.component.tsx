@@ -1,7 +1,7 @@
 import './directory.styles.scss';
 import MenuItem from '../menu-item/menu-item.component';
 import { Component } from 'react';
-import { SectionItem } from '../../models/shopping-interfaces';
+import { SectionItem } from '../../models/collection-interfaces';
 
 interface IState {
     sections: SectionItem[];

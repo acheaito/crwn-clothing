@@ -1,4 +1,4 @@
-import { Collection } from "../../models/shopping-interfaces";
+import { Collection } from "../../models/collection-interfaces";
 
 const SHOP_DATA: Collection[] = [
     {

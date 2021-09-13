@@ -2,7 +2,8 @@ import { IState, IStateAction } from "../../models/state-interfaces";
 import { CartActions } from "./cart.types";
 
 const INITIAL_STATE: IState = {
-    cartHidden: true
+    cartHidden: true,
+    cartItems: []
 };
 
 const cartReducer = (state: IState = INITIAL_STATE, action: IStateAction): IState => {
@@ -11,6 +12,11 @@ const cartReducer = (state: IState = INITIAL_STATE, action: IStateAction): IStat
         return {
             ...state,
             cartHidden: !state.cartHidden
+        };
+    case CartActions.ADD_ITEM:
+        return {
+            ...state,
+            cartItems: [...(state.cartItems || []), action.payload]
         };
     default:
         return state;        

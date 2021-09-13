@@ -1,6 +1,6 @@
 import { Component } from "react";
 import SHOP_DATA from "./shop.data";
-import { Collection } from "../../models/shopping-interfaces";
+import { Collection } from "../../models/collection-interfaces";
 import CollectionPreview from "../../components/collection-preview/collection-preview.component";
 
 interface IState {
