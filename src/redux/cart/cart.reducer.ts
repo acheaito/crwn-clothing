@@ -1,4 +1,4 @@
-import { CartItem } from "../../models/cart.interfaces";
+import { ICartItem } from "../../models/cart.interfaces";
 import { IState, IStateAction } from "../../models/state-interfaces";
 import { CartActions } from "./cart.types";
 import { addItemToCart } from "./cart.utils";
@@ -18,7 +18,7 @@ const cartReducer = (state: IState = INITIAL_STATE, action: IStateAction): IStat
     case CartActions.ADD_ITEM:
         return {
             ...state,
-            cartItems: addItemToCart(state.cartItems as CartItem[], action.payload)
+            cartItems: addItemToCart(state.cartItems as ICartItem[], action.payload)
         };
     default:
         return state;        

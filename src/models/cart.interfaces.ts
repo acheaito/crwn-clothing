@@ -1,4 +1,4 @@
-export interface CartItem {
+export interface ICartItem {
     id: number;
     imageUrl: string;
     name: string;

@@ -1,12 +1,12 @@
 import { Action } from "redux";
-import { CartItem } from "./cart.interfaces";
+import { ICartItem } from "./cart.interfaces";
 
 import { CurrentUser } from "./user-interfaces";
 
 export interface IState {
     currentUser?: CurrentUser;
     cartHidden?: boolean;
-    cartItems?: CartItem[];
+    cartItems?: ICartItem[];
 }
 
 export interface IReducedState {
